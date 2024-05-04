@@ -1,9 +1,10 @@
 import React from 'react'
+import JobList from './JobList';
 
 const HomePage = () => {
   return (
     <div>
-        Hello
+        <JobList></JobList>
     </div>
   )
 }
