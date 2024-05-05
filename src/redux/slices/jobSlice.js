@@ -21,7 +21,11 @@ export const fetchJobs = createAsyncThunk(
 );
 
 const initialState = {
-  value: [],
+  value: {
+    jdList: [],
+    totalCount: 0,
+  },
+  offset: 0,
   isLoading: false,
   error: null,
 };
@@ -29,7 +33,11 @@ const initialState = {
 const jobSlice = createSlice({
   name: "jobs",
   initialState,
-  reducers: {},
+  reducers: {
+    updateOffset: (state, action) => {
+      state.offset += action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchJobs.pending, (state) => {
@@ -38,7 +46,10 @@ const jobSlice = createSlice({
       })
       .addCase(fetchJobs.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.value = action.payload;
+        state.value = {
+          jdList: [...(state.value.jdList || []), ...action.payload.jdList],
+          totalCount: action.payload.totalCount,
+        };
       })
       .addCase(fetchJobs.rejected, (state, action) => {
         state.isLoading = false;
@@ -48,3 +59,4 @@ const jobSlice = createSlice({
 });
 
 export default jobSlice.reducer;
+export const { updateOffset } = jobSlice.actions;

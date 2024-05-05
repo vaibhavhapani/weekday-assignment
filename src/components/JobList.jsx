@@ -7,22 +7,23 @@ const JobList = () => {
   const { minExperience, minBasePay, remote, companyName } = useSelector(
     (state) => state.filter
   );
-  
-  console.log(jobs);
 
   const filteredJobs = jobs?.jdList?.filter((job) => {
     const companyNameMatch = companyName
       ? job.companyName.toLowerCase().includes(companyName.toLowerCase()) // if user enters 'A' or 'a' it will show eBay too as it includes 'a'.
       : true;                                                             //  For exact match we can use .startsWith() instead of .include()
 
-    const minExperienceMatch = !job.minExp || job.minExp >= minExperience; // job will be showed if minimum experience value is null in job data
+    const minExperienceMatch = job.minExp && job.minExp >= minExperience; // job will be showed if minimum experience value is null in job data
 
-    const minBaseSalaryMatch =
-      !job.minJdSalary || job.minJdSalary >= minBasePay; // job will be showed if minimum salary value is null in job data
+    const minBaseSalaryMatch = job.minJdSalary && job.minJdSalary >= minBasePay; // job will be showed if minimum salary value is null in job data
 
-    const isRemote = remote ? job.location.includes("remote") : !job.location.includes("remote");
+    const isRemote = remote
+      ? job.location.includes("remote")
+      : !job.location.includes("remote");
 
-    return companyNameMatch && minExperienceMatch && minBaseSalaryMatch && isRemote;
+    return (
+      companyNameMatch && minExperienceMatch && minBaseSalaryMatch && isRemote
+    );
   });
 
   return (
