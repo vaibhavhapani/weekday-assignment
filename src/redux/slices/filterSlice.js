@@ -8,6 +8,7 @@ const initialState = {
   techStack: [],
   roles: [],
   minBasePay: 0,
+  techStack: [],
 };
 
 const filterSlice = createSlice({
@@ -26,6 +27,15 @@ const filterSlice = createSlice({
     updateMinBasePay: (state, action) => {
       state.minBasePay = action.payload;
     },
+    updateRoles: (state, action) => {
+      state.roles = action.payload;
+    },
+    updateLocation: (state, action) => {
+      state.locations = action.payload;
+    },
+    updateTechStack: (state, action) => {
+      state.techStack = action.payload;
+    },
   },
 });
 
@@ -35,4 +45,7 @@ export const {
   updateMinBasePay,
   updateMinExperience,
   updateRemote,
+  updateRoles,
+  updateLocation,
+  updateTechStack,
 } = filterSlice.actions;
