@@ -3,6 +3,7 @@ import JobList from "./JobList";
 import Filters from "./Filters";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchJobs, updateOffset } from "../redux/slices/jobSlice";
+import { Box } from "@mui/material";
 
 const HomePage = () => {
   const dispatch = useDispatch();
@@ -28,10 +29,12 @@ const HomePage = () => {
   }, [offset]);
 
   return (
-    <div>
+    <Box sx={{m: "10%", mt: "5%"}}>
+      <Box  sx={{mb: "10px"}}>
       <Filters />
+      </Box>
       <JobList></JobList>
-    </div>
+    </Box>
   );
 };
 

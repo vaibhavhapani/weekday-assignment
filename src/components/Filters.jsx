@@ -3,7 +3,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { Option } from "@mui/base/Option";
 import { styled } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
-import { FormControl, InputLabel, Select, MenuItem, Box } from "@mui/material";
+import {
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  Box,
+  Grid,
+} from "@mui/material";
 import {
   updateCompanyName,
   updateMinBasePay,
@@ -51,75 +58,68 @@ const Filters = () => {
 
   return (
     <div>
-      <Box sx={{ display: "flex", gap: 1 }}>
-        <FormControl sx={{ m: 1 }} variant="standard">
-          <InputLabel id="demo-customized-select-label">Experience</InputLabel>
-          <Select
-            labelId="demo-customized-select-label"
-            id="demo-customized-select"
-            value={minExperience}
-            onChange={(e) => dispatch(updateMinExperience(e.target.value))}
-            input={<BootstrapInput />}
-          >
-            <MenuItem value={1}>1</MenuItem>
-            <MenuItem value={2}>2</MenuItem>
-            <MenuItem value={3}>3</MenuItem>
-            <MenuItem value={4}>4</MenuItem>
-            <MenuItem value={5}>5</MenuItem>
-            <MenuItem value={6}>6</MenuItem>
-            <MenuItem value={7}>7</MenuItem>
-            <MenuItem value={8}>8</MenuItem>
-            <MenuItem value={9}>9</MenuItem>
-          </Select>
-        </FormControl>
+      <Grid container spacing={1}>
+        <Grid item xs={12} sm={6} md={3}>
+          <FormControl variant="standard" fullWidth>
+            <InputLabel id="experience-label">Experience</InputLabel>
+            <Select
+              labelId="experience-label"
+              value={minExperience}
+              onChange={(e) => dispatch(updateMinExperience(e.target.value))}
+              input={<BootstrapInput />}
+            >
+              {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((exp) => (
+                <MenuItem key={exp} value={exp}>
+                  {exp}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </Grid>
 
-        <FormControl sx={{ m: 1 }} variant="standard">
-          <InputLabel id="demo-customized-select-label">Remote</InputLabel>
-          <Select
-            labelId="demo-customized-select-label"
-            id="demo-customized-select"
-            value={remote}
-            onChange={(e) => dispatch(updateRemote(e.target.value))}
-            input={<BootstrapInput />}
-          >
-            <MenuItem value={true}>Remote</MenuItem>
-            <MenuItem value={false}>On-site</MenuItem>
-          </Select>
-        </FormControl>
+        <Grid item xs={12} sm={6} md={3}>
+          <FormControl variant="standard" fullWidth>
+            <InputLabel id="remote-label">Remote</InputLabel>
+            <Select
+              labelId="remote-label"
+              value={remote}
+              onChange={(e) => dispatch(updateRemote(e.target.value))}
+              input={<BootstrapInput />}
+            >
+              <MenuItem value={true}>Remote</MenuItem>
+              <MenuItem value={false}>On-site</MenuItem>
+            </Select>
+          </FormControl>
+        </Grid>
 
-        <FormControl sx={{ m: 1 }} variant="standard">
-          <InputLabel id="demo-customized-select-label">
-            Minimum Base Salary
-          </InputLabel>
-          <Select
-            labelId="demo-customized-select-label"
-            id="demo-customized-select"
-            value={minBasePay}
-            onChange={(e) => dispatch(updateMinBasePay(e.target.value))}
-            input={<BootstrapInput />}
-          >
-            <MenuItem value={0}>0L</MenuItem>
-            <MenuItem value={10}>10L</MenuItem>
-            <MenuItem value={20}>20L</MenuItem>
-            <MenuItem value={30}>30L</MenuItem>
-            <MenuItem value={40}>40L</MenuItem>
-            <MenuItem value={50}>50L</MenuItem>
-            <MenuItem value={60}>60L</MenuItem>
-            <MenuItem value={70}>70L</MenuItem>
-            <MenuItem value={80}>80L</MenuItem>
-          </Select>
-        </FormControl>
+        <Grid item xs={12} sm={6} md={3}>
+          <FormControl variant="standard" fullWidth>
+            <InputLabel id="salary-label">Minimum Base Salary</InputLabel>
+            <Select
+              labelId="salary-label"
+              value={minBasePay}
+              onChange={(e) => dispatch(updateMinBasePay(e.target.value))}
+              input={<BootstrapInput />}
+            >
+              {[0, 10, 20, 30, 40, 50, 60, 70, 80].map((salary) => (
+                <MenuItem key={salary} value={salary}>
+                  {salary}L
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </Grid>
 
-        <FormControl sx={{ m: 1 }} variant="standard">
-          <InputLabel htmlFor="demo-customized-textbox">
-            Company Name
-          </InputLabel>
-          <BootstrapInput
-            id="demo-customized-textbox"
-            onChange={(e) => dispatch(updateCompanyName(e.target.value))}
-          />
-        </FormControl>
-      </Box>
+        <Grid item xs={12} sm={6} md={3}>
+          <FormControl variant="standard" fullWidth>
+            <InputLabel htmlFor="company-name">Company Name</InputLabel>
+            <BootstrapInput
+              id="company-name"
+              onChange={(e) => dispatch(updateCompanyName(e.target.value))}
+            />
+          </FormControl>
+        </Grid>
+      </Grid>
     </div>
   );
 };
